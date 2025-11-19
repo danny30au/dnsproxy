@@ -79,7 +79,7 @@ jobs:
 
           ls -l build/dnsproxy-*
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dnsproxy-${{ matrix.platform }}
           path: build/dnsproxy-*
