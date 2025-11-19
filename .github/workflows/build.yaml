@@ -129,11 +129,10 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage.txt
 
-    build:
-     needs:
+  needs:
       - tests
-     runs-on: ubuntu-latest
-     steps:
+       runs-on:ubuntu-latest
+       steps
       - uses: actions/checkout@master
       - uses: actions/setup-go@v2
         with:
@@ -170,8 +169,8 @@ jobs:
           tags: true
           draft: false
 
-    notify:
-     needs:
+     notify:
+      needs:
       - build
      if:
       ${{ always() &&
@@ -180,15 +179,15 @@ jobs:
           github.event.pull_request.head.repo.full_name == github.repository
         )
       }}
-     runs-on: ubuntu-latest
-     steps:
-      - name: Conclusion
-        uses: technote-space/workflow-conclusion-action@v1
-      - name: Send Slack notif
-        uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ env.WORKFLOW_CONCLUSION }}
-          fields: workflow, repo, message, commit, author, eventName,ref
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      runs-on:ubuntu-latest
+      steps
+      - name:Conclusion
+        uses:technote-space/workflow-conclusion-action@v1
+      - name:Send Slack notif
+        uses:8398a7/action-slack@v3
+        with
+          status:${{ env.WORKFLOW_CONCLUSION }}
+          fields:workflow, repo, message, commit, author, eventName,ref
+        env
+          GITHUB_TOKEN:${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL:${{ secrets.SLACK_WEBHOOK_URL }}
